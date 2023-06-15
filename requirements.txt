@@ -1,5 +1,8 @@
-pandas==1.5.1
-joblib==1.2.0
-python-time
-streamlit
+pandas==1.3.5
+numpy==1.21.6
+streamlit==1.14.1
+joblib==0.16.0
+matplotlib==3.5.3
+calendar
+datetime
 scikit-learn==1.1.3
