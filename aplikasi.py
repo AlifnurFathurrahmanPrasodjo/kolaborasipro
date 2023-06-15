@@ -11,8 +11,8 @@ import calendar
 
 # Mengimpor model dan text dari file yang telah diekspor sebelumnya
 svr = joblib.load('modelSVM.pkl')
-df = pd.read_csv('INDF.JK.csv')
-scaler = joblib.load('scaler.pkl')
+df = pd.read_csv('DatasetSaham.csv')
+scaler = joblib.load('scalerUAS.pkl')
 dataset_test = pd.read_csv('data-test-UAS.csv')
 
 
@@ -24,7 +24,7 @@ st.markdown("<h1 style='text-align: center;'>Forecasting Harga Saham PT. INDOFOO
 
 
 # Tombol untuk memprediksi
-if st.button('Run'):
+if st.button('PREDICT'):
     
     col1, col2 = st.columns(2)
 
@@ -65,29 +65,49 @@ if st.button('Run'):
 
 
 
+    # fig, ax = plt.subplots()
+    # # Plot data df
+    # ax.plot(df['Date'], df['Open'], label='Data Awal')
 
-    # Plot data df
-    plt.plot(df['Date'], df['Open'], label='Data Awal')
+    # # Plot data df_pred
+    # ax.plot(df_pred['Date'], df_pred['Open'], label='Prediksi')
 
-    # Plot data df_pred
-    plt.plot(df_pred['Date'], df_pred['Open'], label='Prediksi')
+    # # Menghubungkan plot terakhir data awal dengan plot awal data prediksi
+    # last_year = df['Date'].iloc[-1]
+    # ax.plot([last_year, df_pred['Date'].iloc[0]], [df['Open'].iloc[-1], df_pred['Open'].iloc[0]], 'k--')
 
-    # Menghubungkan plot terakhir data awal dengan plot awal data prediksi
-    last_year = df['Date'].iloc[-1]
-    plt.plot([last_year, df_pred['Date'].iloc[0]], [df['Open'].iloc[-1], df_pred['Open'].iloc[0]], 'k--')
+    # # Konfigurasi plot
+    # ax.set_xlabel('Date')
+    # ax.set_ylabel('Open')
+    # ax.set_title('Perbandingan Data Awal dan Prediksi')
+    # ax.legend()
 
-    # Konfigurasi plot
-    plt.xlabel('Date')
-    plt.ylabel('Open')
-    plt.title('Perbandingan Data Awal dan Prediksi')
-    plt.legend()
-
-    plt.xticks(rotation=45, ha='right')
-    plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
+    # ax.xticks(rotation=45, ha='right')
+    # ax.gca().xaxis.set_major_locator(mdates.MonthLocator())
 
     # Tampilkan plot
     # st.pyplot(fig)
     with col1:
         st.dataframe(df_pred)
     with col2:
-        st.pyplot(fig)
+        plt.plot(df['Date'], df['Open'], label='Data Awal')
+
+        # Plot data df_pred
+        plt.plot(df_pred['Date'], df_pred['Open'], label='Prediksi')
+
+        # Menghubungkan plot terakhir data awal dengan plot awal data prediksi
+        last_year = df['Date'].iloc[-1]
+        plt.plot([last_year, df_pred['Date'].iloc[0]], [df['Open'].iloc[-1], df_pred['Open'].iloc[0]], 'k--')
+
+        # Konfigurasi plot
+        plt.xlabel('Date')
+        plt.ylabel('Open')
+        plt.title('Perbandingan Data Awal dan Prediksi')
+        plt.legend()
+
+        plt.xticks(rotation=45, ha='right')
+        plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
+
+        # Tampilkan plot
+        # plt.show()
+        st.pyplot(plt)
