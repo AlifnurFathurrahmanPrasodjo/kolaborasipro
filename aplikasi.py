@@ -228,7 +228,7 @@ with tab3:
         plt.title('Plot Prediksi vs Aktual')
         plt.legend()
         st.pyplot(plt)
-
+        plt.cla()
         st.write("MAPE = ",error)
     indexModel = np.argmin(errors)
     svr = models[indexModel]
